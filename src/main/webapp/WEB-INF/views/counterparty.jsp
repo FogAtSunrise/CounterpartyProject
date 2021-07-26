@@ -3,18 +3,19 @@
 <html>
 <head>
 
-    <title>Title</title>
+    <title>Справочник контрагентов</title>
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="form-style-2">
+<div class="content">
+    <div class="top">
 
 <button type="button" onclick="location.href='/counterparty/findbyname'">Поиск по имени</button>
 <button type="button" onclick="location.href='/counterparty/findbybikandaccauntnum'">Поиск по бик и номеру счета</button>
 <a href="/">Назад</a>
-</div>
-<div class="form-style-2">
-    <div class="form-style-2-heading">
+</div></div>
+<div class="content">
+    <div class="top">
         Справочник контрагентов
         <button type="button" onclick="location.href='/counterparty/addcounter'">Добавить</button>
     </div>

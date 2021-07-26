@@ -11,8 +11,19 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Collections;
 
+/**
+ * Класс конфигурация для Swagger-ui
+ */
 @Configuration
 public class SpringFoxConfig {
+
+    /**
+     * метод, содержащий параметры для Swagger-а
+     * (указывает на пакет, содержащий контроллер,
+     * а также указывает предикат any())
+     *
+     * @return экземпляр класса Docket
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -21,20 +32,21 @@ public class SpringFoxConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .select()
-//                .apis(RequestHandlerSelectors.any())
-//                .paths(PathSelectors.any())
-//                .build();
+
     }
 
+    /**
+     * метод содержащий пользовательскую информацию об API
+     *
+     * @return экземпляр класса ApiInfo с указанными данными
+     */
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Список контрагентов",
+                "Справочник контрагентов",
                 "Документация API",
                 "1.0",
                 "",
-                new Contact("Nikolay Golovnev", "", "kolya.golovnev@mail.ru"),
+                new Contact("Vereshchagina Irina", "", "hjr462@mail.ru"),
                 "Apache 2.0",
                 "http://www.apache.org/licenses/LICENSE-2.0",
                 Collections.emptyList());

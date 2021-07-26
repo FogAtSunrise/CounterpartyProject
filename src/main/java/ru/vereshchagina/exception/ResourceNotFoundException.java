@@ -1,5 +1,8 @@
 package ru.vereshchagina.exception;
 
+/**
+ * Класс исключения ResourceNotFoundException
+ */
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException() {
         super();

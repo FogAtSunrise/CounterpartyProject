@@ -5,6 +5,9 @@ import ru.vereshchagina.validation.annotation.CorrectINN;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Класс валидации поля ИНН
+ */
 
 public class CorrectINNClass implements ConstraintValidator<CorrectINN, String> {
 
@@ -19,8 +22,7 @@ public class CorrectINNClass implements ConstraintValidator<CorrectINN, String> 
         }
         try {
             Long.parseLong(value);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
         if (!(checkINN10Length(value) || checkINN12Length(value))) {
@@ -29,6 +31,12 @@ public class CorrectINNClass implements ConstraintValidator<CorrectINN, String> 
         return true;
     }
 
+    /**
+     * Метод проверки 10-значного ИНН
+     *
+     * @param inn ИНН
+     * @return true - если ИНН корректный
+     */
     private boolean checkINN10Length(String inn) {
         if (inn.length() != 10)
             return false;
@@ -36,7 +44,12 @@ public class CorrectINNClass implements ConstraintValidator<CorrectINN, String> 
         return controlNumber == Character.getNumericValue(inn.charAt(inn.length() - 1));
     }
 
-
+    /**
+     * Метод проверки 12-значного ИНН
+     *
+     * @param inn ИНН
+     * @return true - если ИНН корректный
+     */
     private boolean checkINN12Length(String inn) {
         if (inn.length() != 12)
             return false;
@@ -45,8 +58,16 @@ public class CorrectINNClass implements ConstraintValidator<CorrectINN, String> 
         return (long) Character.getNumericValue(inn.charAt(10)) == firstNumber && (long) Character.getNumericValue(inn.charAt(11)) == secondNumber;
     }
 
-    private long getControlNumber(int[] weightCoef, String inn, int count)
-    {
+
+    /**
+     * Метод подсчета контрольного числа
+     *
+     * @param weightCoef весовые коэффициенты
+     * @param inn        инн
+     * @param count      количество цифр из инн, участвующих в подсчете
+     * @return контрольное число
+     */
+    private long getControlNumber(int[] weightCoef, String inn, int count) {
         long sum = 0L;
         for (int i = 0; i < count; i++)
             sum += (long) weightCoef[i] * Character.getNumericValue(inn.charAt(i));

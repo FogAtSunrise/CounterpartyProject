@@ -9,12 +9,11 @@
 </head>
 <body>
 
-<div class="form-style-2">
-    <div class="form-style-2-heading">
-        <h2>Добавление нового контрагента</h2>
+<div class="content">
+    <div class="top">
+        <h2>Добавление контрагента</h2>
     </div>
 
-<%--@elvariable id="counterForm" type="ru.sber.model.CounterpartyForm"--%>
     <form:form method="POST" action="/counterparty/addcounter" modelAttribute="counterForm">
 <table>
             <tr hidden>

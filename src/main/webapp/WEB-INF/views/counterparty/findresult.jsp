@@ -2,8 +2,8 @@
 
 <html><body>
 
-<div class="form-style-2">
-    <div class="form-style-2-heading">
+<div class="content">
+    <div class="top">
            <h2>Результат поиска:</h2>
     </div>
     <table>

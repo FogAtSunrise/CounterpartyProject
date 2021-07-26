@@ -8,8 +8,8 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="form-style-2">
-    <div class="form-style-2-heading">
+<div class="content">
+    <div class="top">
         <h2>Изменение данных контрагента</h2>
     </div>
     <form:form method="POST" action="/counterparty/updatcounter" modelAttribute="updateCounter">

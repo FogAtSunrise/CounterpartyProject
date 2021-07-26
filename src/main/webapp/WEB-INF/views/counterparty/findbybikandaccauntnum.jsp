@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<div class="form-style-2">
-    <div class="form-style-2-heading">
+<div class="content">
+    <div class="top">
         <h2>Поиск контрагента по ФИО</h2>
     </div>
 
