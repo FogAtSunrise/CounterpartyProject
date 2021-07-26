@@ -7,7 +7,7 @@
 Обновить файл 
 >/src/main/resources/application.properties
 
-исходя из ваших настроек БД
+исходя из ваших настроек БД:
 
 >spring.datasource.driver-class-name=org.postgresql.Driver 
 >
