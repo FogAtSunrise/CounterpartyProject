@@ -5,10 +5,10 @@
 Подключить модуль к БД. 
 Обновить файл application.properties исходя из ваших настроек БД
 
->spring.datasource.driver-class-name=org.postgresql.Driver
->spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
->spring.datasource.username=postgres
->spring.datasource.password=postgres
+>spring.datasource.driver-class-name=org.postgresql.Driver 
+>spring.datasource.url=jdbc:postgresql://localhost:5432/postgres 
+>spring.datasource.username=postgres 
+>spring.datasource.password=postgres 
 
 # Запуск приложения
 
