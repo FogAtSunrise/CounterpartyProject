@@ -2,8 +2,8 @@
 Автор: Верещагина И.А.
 
 Для работы со справочником:
-Подключить модуль к БД
-Обновить файл application.properties исходя из ваших настроек бд
+Подключить модуль к БД. 
+Обновить файл application.properties исходя из ваших настроек БД
 
 >spring.datasource.driver-class-name=org.postgresql.Driver
 >spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
