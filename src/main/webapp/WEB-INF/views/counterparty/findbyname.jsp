@@ -15,7 +15,7 @@
     <div class="form-style-2-heading">
         <h2>Поиск контрагента по ФИО</h2>
     </div>
-<%--type="ru.sber.model.CounterpartyForm"--%>
+
     <form:form modelAttribute="findByName" method="POST" action="/counterparty/findbyname">
 
     <fieldset>

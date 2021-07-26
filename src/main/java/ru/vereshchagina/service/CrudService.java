@@ -11,25 +11,29 @@ import ru.vereshchagina.repository.CounterpartyRepository;
 import java.util.Optional;
 
 @Service
-@Slf4j
+
 public class CrudService {
     @Autowired
     private CounterpartyRepository usersRepository;
 
-//    public void save(Counterparty user) {
-//        usersRepository.save(user);
-//    }
     public void save(CounterpartyForm counterForm) {
-        Counterparty inputAgent =  Counterparty.from(counterForm);
+        Counterparty inputAgent = Counterparty.from(counterForm);
         usersRepository.save(inputAgent);
     }
-
 
     public void deleteById(Long id) {
         try {usersRepository.deleteById(id);
         }
         catch (Exception e) {
-            throw new ResourceNotFoundException("Counterparty[id = " + id + "] could not find");
+            throw new ResourceNotFoundException("Counterparty[id = " + id + "] was not find");
+        }
+    }
+    public void deleteByName(String name) {
+        try {
+            usersRepository.deleteByName(name);
+        }
+        catch (Exception e) {
+            throw new ResourceNotFoundException("Agent[name = " + name + "] could not find in repository");
         }
     }
 
@@ -46,7 +50,7 @@ public class CrudService {
             usersRepository.save(agentDB);
         }
         else
-            throw new ResourceNotFoundException("Counterparty[id = " + agent.getId() + "] could not find");
+            throw new ResourceNotFoundException("Counterparty[id = " + agent.getId() + "] was not find");
     }
 
 }

@@ -26,6 +26,7 @@
             <th>Номер счета</th>
             <th>БИК банка</th>
         </tr>
+
         <c:forEach items="${counterpartyFromServer}" var="counterparty">
             <tr>
                 <td>${counterparty.name}</td>

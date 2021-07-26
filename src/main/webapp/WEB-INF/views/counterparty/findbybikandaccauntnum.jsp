@@ -7,7 +7,7 @@
     <title>Поиск контрагента</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="/css/styles.css">
-        <script src="<c:url value="js/script.js"/>"></script>
+
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     <div class="form-style-2-heading">
         <h2>Поиск контрагента по ФИО</h2>
     </div>
-<%--type="ru.sber.model.CounterpartyForm"--%>
+
     <form:form modelAttribute="findByBikAndNum" method="POST" action="/counterparty/findbybikandaccauntnum">
 
    <fieldset>
