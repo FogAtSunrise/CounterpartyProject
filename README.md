@@ -11,7 +11,7 @@
 >
 >spring.datasource.username=postgres 
 >
->spring.datasource.password=postgres 
+>spring.datasource.password=123 
 
 # Запуск приложения
 
