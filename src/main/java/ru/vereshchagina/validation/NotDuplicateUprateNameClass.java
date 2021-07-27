@@ -3,9 +3,7 @@ package ru.vereshchagina.validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.vereshchagina.model.CounterpartyForm;
 import ru.vereshchagina.service.FindService;
-
 import ru.vereshchagina.validation.annotation.NotDuplicateUprateName;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
@@ -41,9 +39,9 @@ public class NotDuplicateUprateNameClass  implements ConstraintValidator<NotDupl
                 names.add(agent.getName());
             }
             if (names.contains(newName)) {
-                context.disableDefaultConstraintViolation();
+                 context.disableDefaultConstraintViolation();
                 context.buildConstraintViolationWithTemplate("*такое наименование уже существует")
-                        .addBeanNode()
+                        .addPropertyNode("name")
                         .addConstraintViolation();
                 return false;
             }

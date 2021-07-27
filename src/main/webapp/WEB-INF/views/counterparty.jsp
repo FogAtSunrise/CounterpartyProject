@@ -12,6 +12,7 @@
 
 <button type="button" onclick="location.href='/counterparty/findbyname'">Поиск по имени</button>
 <button type="button" onclick="location.href='/counterparty/findbybikandaccauntnum'">Поиск по бик и номеру счета</button>
+<button type="button" onclick="location.href='/counterparty/deletebyname'">Удалить по имени</button>
 <a href="/">Назад</a>
 </div></div>
 <div class="content">

@@ -1,4 +1,4 @@
-package ru.vereshchagina.repository;
+package ru.vereshchagina.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -50,22 +50,22 @@ public class EndpointsTest {
     @DisplayName("[GET /counterparty/delete/{id}] Delete counter by id")
     @Transactional
     void deleteAgentById() throws Exception {
-        String name = ServiceTest.getAlphaNumericString(12);
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
                 .name(name)
-                .inn("7707083893")
+                .inn("1480155303")
                 .kpp("123123123")
-                .accountNumber("40817810902003859041")
-                .bik("040173604")
+                .accountNumber("50321315400000004546")
+                .bik("947475036")
                 .build();
         crudService.save(counter);
         counter = finderService.findByName(name);
         mvc.perform(get("/counterparty/delete/" + counter.getId().toString())
                 .contentType("application/x-www-form-urlencoded"))
                 .andExpect(status().is3xxRedirection());
-        CounterpartyForm finalAgent = counter;
-        assertThrows(ResourceNotFoundException.class, () -> crudService.deleteById(finalAgent.getId()));
+        CounterpartyForm fin = counter;
+        assertThrows(ResourceNotFoundException.class, () -> crudService.deleteById(fin.getId()));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class EndpointsTest {
     @DisplayName("[GET /counterparty/updatcounter/{id}] Return page  updatcounter")
     @Transactional
     void getRedirectUpdateForm() throws Exception {
-        String name = ServiceTest.getAlphaNumericString(14);
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
                 .name(name)
@@ -120,7 +120,7 @@ public class EndpointsTest {
     @DisplayName("[POST /counterparty/addcounter] Create Counterparty")
     @Transactional
     void createPage() throws Exception {
-        String name = ServiceTest.getAlphaNumericString(15);
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
                 .name(name)
@@ -142,15 +142,16 @@ public class EndpointsTest {
     }
 
     @Test
-    @DisplayName("[POST /counterparty/addcounter] Failed validation by name and number account")
+    @DisplayName("[POST /counterparty/addcounter] Failed validation by number account")
     @Transactional
     void failValidOnCreatePage() throws Exception {
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
-                .name("test123987")
+                .name(name)
                 .inn("7707083893")
                 .kpp("123123123")
-                .accountNumber("40817810902003859041")
+                .accountNumber("njfdbhj810902003859041")
                 .bik("040173604")
                 .build();
         crudService.save(counter);
@@ -166,42 +167,14 @@ public class EndpointsTest {
 
         assertEquals("/counterparty/addcounter", mvcResult.getModelAndView().getViewName());
         assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
-        crudService.deleteByName("test123987");
+        crudService.deleteByName(name);
     }
 
     @Test
     @DisplayName("[POST/counterparty/updatcounter] Update Counterparty")
     @Transactional
     void updatePage() throws Exception {
-        CounterpartyForm counter = CounterpartyForm.builder()
-                .id(0L)
-                .name("test123987")
-                .inn("7707083893")
-                .kpp("123123123")
-                .accountNumber("40817810902003859041")
-                .bik("040173604")
-                .build();
-        crudService.save(counter);
-        CounterpartyForm finderAgent = finderService.findByName("test123987");
-
-        mvc.perform(post("/counterparty/updatcounter")
-                .contentType("application/x-www-form-urlencoded")
-                .param("id", finderAgent.getId().toString())
-                .param("name", finderAgent.getName())
-                .param("inn", finderAgent.getInn())
-                .param("kpp", finderAgent.getKpp())
-                .param("accountNumber", finderAgent.getAccountNumber())
-                .param("bik", finderAgent.getBik()))
-                .andExpect(status().is3xxRedirection());
-        crudService.deleteByName("test123987");
-    }
-
-
-    @Test
-    @DisplayName("[POST /counterparty/findbyname] Find a by name")
-    @Transactional
-    void findByFieldName() throws Exception {
-        String name = ServiceTest.getAlphaNumericString(18);
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
                 .name(name)
@@ -211,78 +184,163 @@ public class EndpointsTest {
                 .bik("040173604")
                 .build();
         crudService.save(counter);
-        CounterpartyForm finderAgent = finderService.findByName(name);
+        CounterpartyForm findCounter = finderService.findByName(name);
+
+        mvc.perform(post("/counterparty/updatcounter")
+                .contentType("application/x-www-form-urlencoded")
+                .param("id", findCounter.getId().toString())
+                .param("name", findCounter.getName())
+                .param("inn", findCounter.getInn())
+                .param("kpp", findCounter.getKpp())
+                .param("accountNumber", findCounter.getAccountNumber())
+                .param("bik", findCounter.getBik()))
+                .andExpect(status().is3xxRedirection());
+        crudService.deleteByName(name);
+    }
+
+    @Test
+    @DisplayName("[POST /update] Failed validation by inn")
+    @Transactional
+    void failValidOnUpdatePage() throws Exception {
+        String name = ServiceTest.getRondomStr();
+        CounterpartyForm agent =CounterpartyForm.builder()
+                .id(0L)
+                .name(name)
+                .inn("7707083893")
+                .kpp("123123123")
+                .accountNumber("40817810902003859041")
+                .bik("040173604")
+                .build();
+        crudService.save(agent);
+        CounterpartyForm findCounter = finderService.findByName(name);
+        agent.setInn("662");
+
+        MvcResult mvcResult = mvc.perform(post("/counterparty/updatcounter")
+                .contentType("application/x-www-form-urlencoded")
+                .param("id", agent.getId().toString())
+                .param("name", agent.getName())
+                .param("inn", agent.getInn())
+                .param("kpp", agent.getKpp())
+                .param("accountNumber", agent.getAccountNumber())
+                .param("bik", agent.getBik()))
+                .andReturn();
+
+        assertEquals("/counterparty/updatcounter", mvcResult.getModelAndView().getViewName());
+        assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
+        crudService.deleteByName(name);
+    }
+
+    @Test
+    @DisplayName("[POST /counterparty/findbyname] Find a by name")
+    @Transactional
+    void findByFieldName() throws Exception {
+        String name = ServiceTest.getRondomStr();
+        CounterpartyForm counter = CounterpartyForm.builder()
+                .id(0L)
+                .name(name)
+                .inn("7707083893")
+                .kpp("123123123")
+                .accountNumber("40817810902003859041")
+                .bik("040173604")
+                .build();
+        crudService.save(counter);
+        CounterpartyForm findCounter = finderService.findByName(name);
 
         mvc.perform(post("/counterparty/findbyname")
                 .contentType("application/x-www-form-urlencoded")
-                .param("name", finderAgent.getName()))
+                .param("name", findCounter.getName()))
                 .andExpect(status().isOk());
         crudService.deleteByName(name);
     }
 
     @Test
-    @DisplayName("[POST /counterparty/findbyname] Failed find a countercounter by field")
+    @DisplayName("[POST /counterparty/findbyname] Failed find by name")
     @Transactional
     void failFindByFieldName() throws Exception {
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
-                .name("test123987")
+                .name(name)
                 .inn("7707083893")
                 .kpp("123123123")
                 .accountNumber("40817810902003859041")
                 .bik("040173604")
                 .build();
         crudService.save(counter);
-        CounterpartyForm finderAgent = finderService.findByName("test123987");
+        CounterpartyForm findCounter = finderService.findByName(name);
 
         mvc.perform(post("/counterparty/findbyname")
                 .contentType("application/x-www-form-urlencoded")
-                .param("name", finderAgent.getName() + "test"))
+                .param("name", findCounter.getName() + "error"))
                 .andExpect(status().isNotFound());
-        crudService.deleteByName("test123987");
+        crudService.deleteByName(name);
     }
     @Test
     @DisplayName("[POST /counterparty/findbybikandaccauntnum] Find  by findbybikandaccauntnum")
     @Transactional
     void findByFieldBikAndAccount() throws Exception {
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
-                .name("test123987")
+                .name(name)
                 .inn("7707083893")
                 .kpp("123123123")
                 .accountNumber("40817810902003859041")
                 .bik("040173604")
                 .build();
         crudService.save(counter);
-        CounterpartyForm finderAgent = finderService.findByName("test123987");
+        CounterpartyForm findCounter = finderService.findByName(name);
         mvc.perform(post("/counterparty/findbybikandaccauntnum")
                 .contentType("application/x-www-form-urlencoded")
                 .param("bik", "040173604")
                 .param("accountNumber", "40817810902003859041"))
                 .andExpect(status().isOk());
-        crudService.deleteByName("test123987");
+        crudService.deleteByName(name);
     }
 
     @Test
-    @DisplayName("[POST /counterparty/findbybikandaccauntnum] Find  by findbybikandaccauntnum")
+    @DisplayName("[POST /counterparty/findbybikandaccauntnum] Failed find  by findbybikandaccauntnum")
     @Transactional
     void findByFieldBikAndAccountEx() throws Exception {
+        String name = ServiceTest.getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .id(0L)
-                .name("test123987")
+                .name(name)
                 .inn("7707083893")
                 .kpp("123123123")
                 .accountNumber("40817810902003859041")
                 .bik("040173604")
                 .build();
         crudService.save(counter);
-        CounterpartyForm finderAgent = finderService.findByName("test123987");
+        CounterpartyForm findCounter = finderService.findByName(name);
         mvc.perform(post("/counterparty/findbybikandaccauntnum")
                 .contentType("application/x-www-form-urlencoded")
                 .param("bik", "123456789")
                 .param("accountNumber", "8765810902003859041"))
                 .andExpect(status().isNotFound());
-        crudService.deleteByName("test123987");
+        crudService.deleteByName(name);
     }
 
+    @Test
+    @DisplayName("[POST /counterparty/deletebyname] Delete a existing ")
+    @Transactional
+    void deleteByNamePage() throws Exception {
+        String name = ServiceTest.getRondomStr();
+        CounterpartyForm counter = CounterpartyForm.builder()
+                .id(0L)
+                .name(name)
+                .inn("7707083893")
+                .kpp("123123123")
+                .accountNumber("40817810902003859041")
+                .bik("040173604")
+                .build();
+        crudService.save(counter);
+        CounterpartyForm findCounter = finderService.findByName(name);
+
+        mvc.perform(post("/counterparty/deletebyname")
+                .contentType("application/x-www-form-urlencoded")
+                .param("name", findCounter.getName()))
+                .andExpect(status().is3xxRedirection());
+        assertThrows(ResourceNotFoundException.class, () -> finderService.findByName(name));
+    }
 }

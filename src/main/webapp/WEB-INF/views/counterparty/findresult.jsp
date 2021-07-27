@@ -1,11 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html><body>
+<head>
 
+    <title>Поиск контрагента</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/styles.css">
+
+</head>
 <div class="content">
     <div class="top">
            <h2>Результат поиска:</h2>
     </div>
+
     <table>
         <tr>
             <th align="right">Наименование</th>
@@ -28,8 +35,7 @@
             <th align="left">${finderCounter.bik}</th>
         </tr>
     </table>
-    <hr/>
-    <input type="button" onclick="history.back();" value="Назад"/>
+<button type="button" onclick="history.back();">Назад</button>
 <button type="button" onclick="location.href='/counterparty/delete/${finderCounter.id}'">Удалить</button>
 <button type="button" onclick="location.href='/counterparty/updatcounter/${finderCounter.id}'">Изменить</button>
 </div>

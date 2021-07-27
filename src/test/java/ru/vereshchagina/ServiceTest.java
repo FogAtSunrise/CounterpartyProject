@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import ru.vereshchagina.model.CounterpartyForm;
-import ru.vereshchagina.repository.CounterpartyRepository;
+import ru.vereshchagina.dao.CounterpartyRepository;
 import ru.vereshchagina.service.CrudService;
 import ru.vereshchagina.service.FindService;
 
@@ -33,10 +33,10 @@ public class ServiceTest {
 
     /**
      * вспомогательный метод для генерации строки
-     * @param n количество символов в строке
      * @return строка
      */
-    static String getAlphaNumericString(int n) {
+    static String getRondomStr() {
+        int n = (int) (1+20 * Math.random());
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "0123456789"
                 + "abcdefghijklmnopqrstuvxyz";
@@ -54,20 +54,20 @@ public class ServiceTest {
     @Transactional
     void testSave() {
         List<CounterpartyForm> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-
+        int n =(int) (1+20 * Math.random());
+        for (int i = 0; i < n; i++) {
             CounterpartyForm counter = CounterpartyForm.builder()
-                    .name(getAlphaNumericString(i + 5))
-                    .inn("12345")
-                    .kpp("1234567")
-                    .accountNumber("123")
-                    .bik("123456")
+                    .name(getRondomStr())
+                    .inn(getRondomStr())
+                    .kpp(getRondomStr())
+                    .accountNumber(getRondomStr())
+                    .bik(getRondomStr())
                     .build();
             list.add(counter);
             assertFalse(repository.findByName(counter.getName()).isPresent());
             crudService.save(counter);
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < n; i++) {
             assertTrue(repository.findByName(list.get(i).getName()).isPresent());
             repository.deleteByName(list.get(i).getName());
         }
@@ -75,24 +75,25 @@ public class ServiceTest {
 
     @Test
     @DisplayName("Testing method update()")
-    @Transactional
+
     void testUpdate() {
+        String name = getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
-                .name("test1")
-                .inn("1237083893")
-                .kpp("532123123")
-                .accountNumber("7564510902003859041")
-                .bik("87653604")
+                .name(name)
+                .inn(getRondomStr())
+                .kpp(getRondomStr())
+                .accountNumber(getRondomStr())
+                .bik(getRondomStr())
                 .build();
         crudService.save(counter);
-        counter = finderService.findByName("test1");
+        counter = finderService.findByName(name);
         CounterpartyForm counterUpdate = CounterpartyForm.builder()
                 .id(counter.getId())
-                .name("test2")
-                .inn("7707083892")
-                .kpp("123123122")
-                .accountNumber("40817810902003859042")
-                .bik("040173602")
+                .name(getRondomStr())
+                .inn(getRondomStr())
+                .kpp(getRondomStr())
+                .accountNumber(getRondomStr())
+                .bik(getRondomStr())
                 .build();
         crudService.update(counterUpdate);
         assertTrue(repository.findById(counterUpdate.getId()).isPresent());
@@ -106,35 +107,53 @@ public class ServiceTest {
 
     @Test
     @DisplayName("Testing deleteById()")
-    @Transactional
     void testDeleteById() {
+        String name = getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
-                .name("test123")
-                .inn("3707083893")
-                .kpp("323123123")
-                .accountNumber("40917810902003859041")
-                .bik("046173604")
+                .name(name)
+                .inn(getRondomStr())
+                .kpp(getRondomStr())
+                .accountNumber(getRondomStr())
+                .bik(getRondomStr())
                 .build();
         crudService.save(counter);
-        counter = finderService.findByName("test123");
+        counter = finderService.findByName(name);
         CounterpartyForm finalAgent = counter;
         assertDoesNotThrow(() -> crudService.deleteById(finalAgent.getId()));
 
     }
 
     @Test
-    @DisplayName("Testing method findAll()")
+    @DisplayName("Testing method deleteByName()")
     @Transactional
+    void testDeleteByName() {
+        String name = getRondomStr();
+        CounterpartyForm agent = CounterpartyForm.builder()
+                .name(name)
+                .inn(getRondomStr())
+                .kpp(getRondomStr())
+                .accountNumber(getRondomStr())
+                .bik(getRondomStr())
+                .build();
+        crudService.save(agent);
+        agent = finderService.findByName(name);
+        CounterpartyForm finalAgent = agent;
+        assertDoesNotThrow(() -> crudService.deleteByName(finalAgent.getName()));
+    }
+
+    @Test
+    @DisplayName("Testing method findAll()")
+
     void testFindAll() {
         repository.deleteAll();
         int countElem = 0;
         for (int i = 0; i < Math.random() * 20; i++) {
             CounterpartyForm counter = CounterpartyForm.builder()
-                    .name("test" + i)
-                    .inn("123" + i)
-                    .kpp("123" + i)
-                    .accountNumber("123" + i)
-                    .bik("123" + i)
+                    .name(getRondomStr())
+                    .inn(getRondomStr())
+                    .kpp(getRondomStr())
+                    .accountNumber(getRondomStr())
+                    .bik(getRondomStr())
                     .build();
             crudService.save(counter);
             countElem++;
@@ -145,15 +164,15 @@ public class ServiceTest {
 
     @Test
     @DisplayName("Testing method findByName()")
-    @Transactional
+
     void testFindById() {
-        String name = getAlphaNumericString(11);
+        String name = getRondomStr();
         CounterpartyForm counter = CounterpartyForm.builder()
                 .name(name)
-                .inn("123")
-                .kpp("765")
-                .accountNumber("345")
-                .bik("123")
+                .inn(getRondomStr())
+                .kpp(getRondomStr())
+                .accountNumber(getRondomStr())
+                .bik(getRondomStr())
                 .build();
         crudService.save(counter);
         counter = finderService.findByName(name);
@@ -163,14 +182,14 @@ public class ServiceTest {
 
     @Test
     @DisplayName("Testing method findByBikAndNumberAccount()")
-    @Transactional
+
     void testFindByBikAndNum() {
         CounterpartyForm counter = CounterpartyForm.builder()
-                .name(getAlphaNumericString(8))
-                .inn("98796")
-                .kpp("7567")
-                .accountNumber("2452346")
-                .bik("23523452345")
+                .name(getRondomStr())
+                .inn(getRondomStr())
+                .kpp(getRondomStr())
+                .accountNumber(getRondomStr())
+                .bik(getRondomStr())
                 .build();
         crudService.save(counter);
         counter = finderService.findByName(counter.getName());

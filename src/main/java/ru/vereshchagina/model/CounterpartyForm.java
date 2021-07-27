@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import ru.vereshchagina.validation.annotation.CorrectBIKAndNumb;
+import ru.vereshchagina.validation.annotation.CorrectINN;
 import ru.vereshchagina.validation.annotation.NotDuplicateUprateName;
 
 import javax.validation.constraints.NotEmpty;
@@ -42,9 +43,10 @@ public class CounterpartyForm {
             name = "inn",
             dataType = "String",
             example = "500100732259")
-    @NotEmpty(message = "*укажите ИНН")
+
+
+    @CorrectINN(message = "*указан неверный ИНН")
     @Pattern(regexp = "(^[(0-9)]+)$", message = "*ИНН должен состоять только из цифр")
-    // @CorrectINN(message = "*указан неверный ИНН")
     private String inn;
 
 
@@ -54,8 +56,9 @@ public class CounterpartyForm {
             dataType = "String",
             example = "222443001")
 
-    @Size(min = 9, max = 9, message = "*КПП должен состоять из 9 цифр")
+
     @Pattern(regexp = "(^[(0-9)]+)$", message = "*КПП должен состоять только из цифр")
+    @Size(min = 9, max = 9, message = "*КПП должен состоять из 9 цифр")
     private String kpp;
 
     @ApiModelProperty(

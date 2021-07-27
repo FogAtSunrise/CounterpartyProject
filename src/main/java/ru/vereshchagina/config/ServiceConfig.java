@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * Класс конфигурации для подключения JPA-репозитория и сущности
  */
 @Configuration
-@EnableJpaRepositories(value = "ru.vereshchagina.repository")
+@EnableJpaRepositories(value = "ru.vereshchagina.dao")
 @EntityScan("ru.vereshchagina.entity")
 public class ServiceConfig {
 }

@@ -14,6 +14,7 @@ import ru.vereshchagina.service.CrudService;
 import ru.vereshchagina.service.FindService;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -203,5 +204,29 @@ public class CounterpartyController {
         return new ModelAndView("redirect:/counterparty");
     }
 
-
+    /**
+     * GET-запрос загрузки страницы удаления контрагента по наименованию
+     *
+     * @param counterForm объект контрагента
+     * @return модель для отображения конечной страницы
+     */
+    @ApiOperation(value = "Загрузка страницы для удаления контрагента по наименованию",
+            notes = "Метод загружает страницу с формой для удаления контрагента по наименованию")
+    @GetMapping("/counterparty/deletebyname")
+    public ModelAndView openDelrByName(@ModelAttribute("deleteByName") CounterpartyForm counterForm) {
+        return new ModelAndView("/counterparty/deletebyname");
+    }
+    /**
+     * POST-запрос удаления контрагента по имени
+     * @param counterForm удаляемый контрагент
+     * @return модель для отображения конечной страницы с переданной информацией
+     */
+    @ApiOperation(value = "Удаляет контрагента по имени",
+            notes = "Этот метод удаляет контрагента по имени")
+    @PostMapping("/counterparty/deletebyname")
+    @Transactional
+    public ModelAndView deleteByName(@ModelAttribute("deleteByName") CounterpartyForm counterForm) {
+        crudService.deleteByName(counterForm.getName());
+        return new ModelAndView("redirect:/counterparty");
+    }
 }

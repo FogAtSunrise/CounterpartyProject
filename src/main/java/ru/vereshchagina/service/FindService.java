@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.vereshchagina.entity.Counterparty;
 import ru.vereshchagina.exception.ResourceNotFoundException;
 import ru.vereshchagina.model.CounterpartyForm;
-import ru.vereshchagina.repository.CounterpartyRepository;
+import ru.vereshchagina.dao.CounterpartyRepository;
 import ma.glasnost.orika.MapperFacade;
 
 import java.util.List;

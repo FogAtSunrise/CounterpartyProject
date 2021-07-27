@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 import ru.vereshchagina.entity.Counterparty;
 import ru.vereshchagina.exception.ResourceNotFoundException;
 import ru.vereshchagina.model.CounterpartyForm;
-import ru.vereshchagina.repository.CounterpartyRepository;
+import ru.vereshchagina.dao.CounterpartyRepository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 /**
@@ -25,6 +26,7 @@ public class CrudService {
      *
      * @param counterForm сохраняемый контрагент
      */
+
     public void save(CounterpartyForm counterForm) {
         Counterparty inputAgent = mapperFacade.map(counterForm, Counterparty.class);
         usersRepository.save(inputAgent);
@@ -61,6 +63,7 @@ public class CrudService {
      *
      * @param counterForm обновляемый контрагент
      */
+    @Transactional
     public void update(CounterpartyForm counterForm) {
         Optional<Counterparty> counter = usersRepository.findById(counterForm.getId());
         if (counter.isPresent()) {
