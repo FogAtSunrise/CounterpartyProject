@@ -1,10 +1,10 @@
 body {
-    margin: 50px 15% 0 15%;
+    margin: 50px 0% 0 0%;
     font-size: 22px;
 }
 .content {
     align-self: center;
-    border: 2px solid #000000;
+    border: 2px solid #ffffff;
     border-radius: 3px;
     text-align: center;
 }
@@ -18,11 +18,11 @@ body {
     background-color: #8b91c7;
 }
 .top h2 {
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding-top: 20px;
     padding-bottom: 20px;
     margin: 0;
-    border-bottom: 2px solid #000000;
+    border-bottom: 2px solid #ffffff;
 }
 .content table {
     width: 100%;
