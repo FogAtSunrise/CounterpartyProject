@@ -10,7 +10,7 @@
 <body>
 <div class="content">
     <div class="top">
-        <h2>Изменение данных контрагента</h2>
+         <span style="font-weight:bold">Изменение данных контрагента</span>
     </div>
     <form:form method="POST" action="/counterparty/updatcounter" modelAttribute="updateCounter">
         <table>
@@ -61,7 +61,7 @@
             <tr>
                 <th></th>
                 <th align="right">
-                    <button type="button" onclick="history.back();">Назад</button>
+                    <button type="button" onclick="location.href='/counterparty'">Назад</button>
                     <button type="submit">Изменить</button>
                 </th>
             </tr>

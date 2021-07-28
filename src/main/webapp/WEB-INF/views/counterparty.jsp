@@ -17,7 +17,8 @@
 </div></div>
 <div class="content">
     <div class="top">
-        Справочник контрагентов
+     <span style="font-weight:bold">Справочник контрагентов</span>
+
         <button type="button" onclick="location.href='/counterparty/addcounter'">Добавить</button>
     </div>
     <table>

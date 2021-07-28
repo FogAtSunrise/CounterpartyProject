@@ -13,17 +13,17 @@
 
 <div class="content">
     <div class="top">
-        <h2>Поиск контрагента по ФИО</h2>
+        <span style="font-weight:bold">Поиск контрагента по БИК и номеру счета</span>
     </div>
 
     <form:form modelAttribute="findByBikAndNum" method="POST" action="/counterparty/findbybikandaccauntnum">
 
-   <fieldset>
+
                    <legend></legend>
                    <form:input path="bik" placeholder="БИК банка" maxlength="9"/>
                    <form:input path="accountNumber" placeholder="Номер счета" maxlength="20"/>
                    <button type="submit">Найти</button>
-               </fieldset>
+
 <button type="button" onclick="location.href='/counterparty'">Назад</button>
     </form:form>
 </div>

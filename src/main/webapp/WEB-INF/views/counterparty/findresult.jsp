@@ -10,7 +10,8 @@
 </head>
 <div class="content">
     <div class="top">
-           <h2>Результат поиска:</h2>
+
+                   <span style="font-weight:bold">Результат поиска:</span>
     </div>
 
     <table>

@@ -13,16 +13,15 @@
 
 <div class="content">
     <div class="top">
-        <h2>Поиск контрагента по ФИО</h2>
+        <span style="font-weight:bold">Поиск контрагента по наименованию</span>
     </div>
 
     <form:form modelAttribute="findByName" method="POST" action="/counterparty/findbyname">
 
-    <fieldset>
                     <legend></legend>
                     <form:input path="name" placeholder="ФИО контрагента" maxlength="20"/>
                     <button type="submit" >Найти</button>
-                </fieldset>
+
                            <button type="button" onclick="location.href='/counterparty'">Назад</button>
 
     </form:form>

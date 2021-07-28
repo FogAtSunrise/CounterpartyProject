@@ -11,7 +11,8 @@
 
 <div class="content">
     <div class="top">
-        <h2>Добавление контрагента</h2>
+
+         <span style="font-weight:bold">Добавление контрагента</span>
     </div>
 
     <form:form method="POST" action="/counterparty/addcounter" modelAttribute="counterForm">
